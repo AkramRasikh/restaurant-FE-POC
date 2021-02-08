@@ -1,3 +1,4 @@
+console.log("gatsby-ssr file")
 /**
  * Implement Gatsby's SSR (Server Side Rendering) APIs in this file.
  *

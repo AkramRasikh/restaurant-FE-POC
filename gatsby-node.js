@@ -1,7 +1,5 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.com/docs/node-apis/
- */
+exports.sourceNodes = require("./source-nodes")
 
-// You can delete this file if you're not using it
+exports.onCreatePage = require("./on-create-page")
+
+exports.createPages = require("./create-pages")
