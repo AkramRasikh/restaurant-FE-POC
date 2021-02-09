@@ -19,9 +19,19 @@ module.exports = async ({ actions, createNodeId, createContentDigest }) => {
     }
   }
 
-  const [restaurantAPIData, configAPIData] = await Promise.all([
+  const getPageData = async () => {
+    try {
+      const response = await axios.get("http://localhost:3003/routes")
+      return response.data
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const [restaurantAPIData, configAPIData, pageAPIData] = await Promise.all([
     getRestaurantData(),
     getConfigData(),
+    getPageData(),
   ])
 
   const restaurantNodeData = {
@@ -32,6 +42,10 @@ module.exports = async ({ actions, createNodeId, createContentDigest }) => {
   const configNodeData = {
     id: createNodeId("my-config-data"),
     ...configAPIData,
+  }
+  const pageNodeData = {
+    id: createNodeId("my-page-data"),
+    ...pageAPIData,
   }
 
   const restaurantNode = {
@@ -50,7 +64,16 @@ module.exports = async ({ actions, createNodeId, createContentDigest }) => {
       contentDigest: createContentDigest(configNodeData),
     },
   }
+  const pageNode = {
+    ...pageNodeData,
+    internal: {
+      type: "pageType",
+      content: JSON.stringify(pageAPIData),
+      contentDigest: createContentDigest(pageNodeData),
+    },
+  }
 
   actions.createNode(restaurantNode)
   actions.createNode(configNode)
+  actions.createNode(pageNode)
 }

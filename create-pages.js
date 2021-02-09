@@ -25,6 +25,14 @@ module.exports = async ({ graphql, actions }) => {
           }
         }
       }
+      allPageType {
+        nodes {
+          id
+          internal {
+            content
+          }
+        }
+      }
     }
   `)
 
@@ -32,10 +40,11 @@ module.exports = async ({ graphql, actions }) => {
 
   const restaurantData = extractNode(restaurantInfo, "allRestaurantType")
   const [featureNodes] = extractNode(restaurantInfo, "allConfigType")
+  const [pagesNodes] = extractNode(restaurantInfo, "allPageType")
+  console.log("pagesNodes:: ", pagesNodes)
   const {
     features: { splitBillEnabled },
   } = featureNodes
-  console.log("splitBillEnabled: ", splitBillEnabled)
 
   const buildablePages = flattenedRoutes.filter(
     route => !(route.path === "split-bill" && !splitBillEnabled)
