@@ -10,10 +10,19 @@ module.exports = async ({ actions, createNodeId, createContentDigest }) => {
     }
   }
 
+  const getAllRestaurantData = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/restaurants")
+      return response.data.restaurants
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const getConfigData = async () => {
     try {
       const response = await axios.get("http://localhost:3003")
-      return response.data
+      return response.data.restaurants
     } catch (error) {
       console.error(error)
     }
@@ -28,10 +37,16 @@ module.exports = async ({ actions, createNodeId, createContentDigest }) => {
     }
   }
 
-  const [restaurantAPIData, configAPIData, pageAPIData] = await Promise.all([
+  const [
+    restaurantAPIData,
+    configAPIData,
+    pageAPIData,
+    allRestaurantsAPIData,
+  ] = await Promise.all([
     getRestaurantData(),
     getConfigData(),
     getPageData(),
+    getAllRestaurantData(),
   ])
 
   const restaurantNodeData = {
@@ -56,6 +71,19 @@ module.exports = async ({ actions, createNodeId, createContentDigest }) => {
       contentDigest: createContentDigest(restaurantNodeData),
     },
   }
+
+  allRestaurantsAPIData.forEach((dataNode, index) => {
+    actions.createNode({
+      ...dataNode,
+      id: createNodeId(`restaurant-${index}`),
+      internal: {
+        type: "restaurantsType",
+        content: JSON.stringify(dataNode),
+        contentDigest: createContentDigest(dataNode),
+      },
+    })
+  })
+
   const configNode = {
     ...configNodeData,
     internal: {
