@@ -1,21 +1,12 @@
-const config = require("config")
+const config = require('config')
 
 const extractNode = (graphqlInfo, key) => graphqlInfo.data[key].nodes
 
-module.exports = async ({ graphql, actions }) => {
-  const { createPage } = actions
+module.exports = async ({graphql, actions}) => {
+  const {createPage} = actions
 
   const restaurantInfo = await graphql(`
     query Data {
-      allRestaurantType {
-        nodes {
-          menuItems {
-            name
-            price
-          }
-          message
-        }
-      }
       allConfigType {
         nodes {
           features {
@@ -28,24 +19,22 @@ module.exports = async ({ graphql, actions }) => {
     }
   `)
 
-  const { flattenedRoutes } = config
+  const {flattenedRoutes} = config
 
-  const restaurantData = extractNode(restaurantInfo, "allRestaurantType")
-  const [featureNodes] = extractNode(restaurantInfo, "allConfigType")
+  const [featureNodes] = extractNode(restaurantInfo, 'allConfigType')
   const {
-    features: { splitBillEnabled },
+    features: {splitBillEnabled},
   } = featureNodes
 
   const buildablePages = flattenedRoutes.filter(
-    route => !(route.path === "split-bill" && !splitBillEnabled)
+    route => !(route.path === 'split-bill' && !splitBillEnabled),
   )
 
-  buildablePages.forEach(({ path, component }) => {
+  buildablePages.forEach(({path, component}) => {
     createPage({
       path,
-      component: component,
+      component,
       context: {
-        restaurantData,
         configJson: {
           features: {
             splitBillEnabled,
