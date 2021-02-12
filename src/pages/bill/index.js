@@ -1,5 +1,5 @@
-import React from "react"
-import BillContainer from "./bill-container"
+import React from 'react'
+import BillContainer from '../../components/bill/bill-container'
 
 const Bill = () => {
   return <BillContainer />

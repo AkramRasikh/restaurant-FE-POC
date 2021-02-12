@@ -2,7 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    "jest/globals": true,
+    'jest/globals': true,
   },
   globals: {
     exports: true,
@@ -10,11 +10,11 @@ module.exports = {
     require: true,
     graphql: false,
     process: false,
-    Atomics: "readonly",
-    SharedArrayBuffer: "readonly",
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly',
   },
   parserOptions: {
-    sourceType: "module",
+    sourceType: 'module',
     ecmaVersion: 2019,
     ecmaFeatures: {
       experimentalObjectRestSpread: true,
@@ -22,10 +22,13 @@ module.exports = {
     },
   },
   extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "airbnb",
-    "plugin:jest/recommended",
-    "eslint-config-prettier",
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'airbnb',
+    'plugin:jest/recommended',
+    'eslint-config-prettier',
   ],
+  rules: {
+    'react/jsx-filename-extension': [1, {extensions: ['.js', '.jsx']}],
+  },
 }

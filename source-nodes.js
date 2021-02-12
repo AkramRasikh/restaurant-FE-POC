@@ -1,5 +1,5 @@
 const axios = require('axios')
-const {server} = require('./src/mocks/server')
+const {server} = require('./mocks/server')
 
 server.listen()
 
@@ -11,7 +11,6 @@ module.exports = async ({actions, createNodeId, createContentDigest}) => {
       return response.data
     } catch (error) {
       console.error(error)
-      return response.data
     }
   }
 
