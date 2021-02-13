@@ -1,8 +1,3 @@
-console.log("gatsby-ssr file")
-/**
- * Implement Gatsby's SSR (Server Side Rendering) APIs in this file.
- *
- * See: https://www.gatsbyjs.com/docs/ssr-apis/
- */
+import PageProvider from './src/providers/page-provider';
 
-// You can delete this file if you're not using it
+export const wrapPageElement = PageProvider;

@@ -1,11 +1,11 @@
-import React from 'react'
-import {Link} from 'gatsby'
-import useConfig from '../../providers/config-provider/use-config'
+import React from 'react';
+import {Link} from 'gatsby';
+import useConfig from '../../providers/config-provider/use-config';
 
 const BillContainer = () => {
   const {
     features: {splitBillEnabled},
-  } = useConfig()
+  } = useConfig();
 
   return (
     <div>
@@ -16,7 +16,7 @@ const BillContainer = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default BillContainer
+export default BillContainer;

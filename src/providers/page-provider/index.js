@@ -1,8 +1,13 @@
-import React from "react"
-import ConfigProvider from "../config-provider"
+import React from 'react';
+import {node} from 'prop-types';
+import ConfigProvider from '../config-provider';
 
-const PageProvider = ({ element, props }) => (
-  <ConfigProvider {...props}>{element}</ConfigProvider>
-)
+const PageProvider = ({element}) => {
+  return <ConfigProvider>{element}</ConfigProvider>;
+};
 
-export default PageProvider
+PageProvider.propType = {
+  element: node.isRequired,
+};
+
+export default PageProvider;

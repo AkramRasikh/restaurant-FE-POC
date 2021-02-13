@@ -1,8 +1,9 @@
-import React from 'react'
-import BillContainer from '../../components/bill/bill-container'
+import React from 'react';
+import BillContainer from '../../components/bill/bill-container';
 
-const Bill = () => {
-  return <BillContainer />
-}
+const Bill = props => {
+  console.log('Bill props: ', props);
+  return <BillContainer />;
+};
 
-export default Bill
+export default Bill;

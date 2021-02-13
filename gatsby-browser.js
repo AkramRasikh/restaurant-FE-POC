@@ -1,3 +1,3 @@
-import PageProvider from "./src/providers/page-provider"
+import PageProvider from './src/providers/page-provider';
 
-export const wrapPageElement = PageProvider
+export const wrapPageElement = PageProvider;

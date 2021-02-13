@@ -1,11 +1,34 @@
-import React from "react"
-import ConfigContext from "./config-context"
+import React from 'react';
+import {useStaticQuery, graphql} from 'gatsby';
+import {node} from 'prop-types';
+import ConfigContext from './config-context';
 
-const { Provider } = ConfigContext
+const {Provider} = ConfigContext;
 
-const ConfigProvider = ({ pageContext, children }) => {
-  const { configJson } = pageContext
-  return <Provider value={{ ...configJson }}>{children}</Provider>
-}
+const ConfigProvider = ({children}) => {
+  const {
+    allConfigType: {nodes: configNodes},
+  } = useStaticQuery(
+    graphql`
+      query Data {
+        allConfigType {
+          nodes {
+            features {
+              orderEnabled
+              payEnabled
+              splitBillEnabled
+            }
+          }
+        }
+      }
+    `,
+  );
 
-export default ConfigProvider
+  return <Provider value={{...configNodes[0]}}>{children}</Provider>;
+};
+
+ConfigProvider.propType = {
+  children: node.isRequired,
+};
+
+export default ConfigProvider;

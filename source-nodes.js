@@ -1,48 +1,44 @@
-const axios = require('axios')
-const {server} = require('./mocks/server')
+const axios = require('axios');
+const {server} = require('./mocks/server');
 
-server.listen()
+server.listen();
 
 module.exports = async ({actions, createNodeId, createContentDigest}) => {
   const getRestaurantData = async () => {
     try {
-      // const response = await axios.get("http://localhost:3001")
-      const response = await axios.get('http://localhost:8000/one-restaurant')
-      return response.data
+      const response = await axios.get('http://localhost:8000/one-restaurant');
+      return response.data;
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   const getAllRestaurantData = async () => {
     try {
-      // const response = await axios.get("http://localhost:3001/restaurants")
-      const response = await axios.get('http://localhost:8000/restaurants')
-      return response.data.restaurants
+      const response = await axios.get('http://localhost:8000/restaurants');
+      return response.data.restaurants;
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   const getConfigData = async () => {
     try {
-      // const response = await axios.get("http://localhost:3003")
-      const response = await axios.get('http://localhost:8000/config')
-      return response.data
+      const response = await axios.get('http://localhost:8000/config');
+      return response.data;
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   const getPageData = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/routes')
-      // const response = await axios.get("http://localhost:3003/routes")
-      return response.data
+      const response = await axios.get('http://localhost:8000/routes');
+      return response.data;
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   const [
     restaurantAPIData,
@@ -54,21 +50,21 @@ module.exports = async ({actions, createNodeId, createContentDigest}) => {
     getConfigData(),
     getPageData(),
     getAllRestaurantData(),
-  ])
+  ]);
 
   const restaurantNodeData = {
     id: createNodeId('my-restaurant-data'),
     ...restaurantAPIData.data,
-  }
+  };
 
   const configNodeData = {
     id: createNodeId('my-config-data'),
     ...configAPIData,
-  }
+  };
   const pageNodeData = {
     id: createNodeId('my-page-data'),
     ...pageAPIData,
-  }
+  };
 
   const restaurantNode = {
     ...restaurantNodeData,
@@ -77,7 +73,7 @@ module.exports = async ({actions, createNodeId, createContentDigest}) => {
       content: JSON.stringify(restaurantAPIData),
       contentDigest: createContentDigest(restaurantNodeData),
     },
-  }
+  };
 
   allRestaurantsAPIData.forEach((dataNode, index) => {
     actions.createNode({
@@ -88,8 +84,8 @@ module.exports = async ({actions, createNodeId, createContentDigest}) => {
         content: JSON.stringify(dataNode),
         contentDigest: createContentDigest(dataNode),
       },
-    })
-  })
+    });
+  });
 
   const configNode = {
     ...configNodeData,
@@ -98,7 +94,7 @@ module.exports = async ({actions, createNodeId, createContentDigest}) => {
       content: JSON.stringify(configAPIData),
       contentDigest: createContentDigest(configNodeData),
     },
-  }
+  };
   const pageNode = {
     ...pageNodeData,
     internal: {
@@ -106,9 +102,9 @@ module.exports = async ({actions, createNodeId, createContentDigest}) => {
       content: JSON.stringify(pageAPIData),
       contentDigest: createContentDigest(pageNodeData),
     },
-  }
+  };
 
-  actions.createNode(restaurantNode)
-  actions.createNode(configNode)
-  actions.createNode(pageNode)
-}
+  actions.createNode(restaurantNode);
+  actions.createNode(configNode);
+  actions.createNode(pageNode);
+};
