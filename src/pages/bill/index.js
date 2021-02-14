@@ -2,8 +2,12 @@ import React from 'react';
 import {graphql} from 'gatsby';
 import BillContainer from '../../components/bill/bill-container';
 
-const Bill = props => {
-  return <BillContainer />;
+const Bill = ({
+  data: {
+    markdownRemark: {frontmatter: content},
+  },
+}) => {
+  return <BillContainer content={content} />;
 };
 
 export default Bill;

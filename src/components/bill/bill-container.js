@@ -1,13 +1,11 @@
 import React from 'react';
 import {Link} from 'gatsby';
 import useConfig from '../../providers/config-provider/use-config';
-import useContent from '../../content/content-provider/use-content';
 
-const BillContainer = () => {
+const BillContainer = ({content}) => {
   const {
     features: {splitBillEnabled},
   } = useConfig();
-  const {content} = useContent();
 
   return (
     <div>
