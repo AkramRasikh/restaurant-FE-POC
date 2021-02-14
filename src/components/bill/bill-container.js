@@ -7,11 +7,11 @@ const BillContainer = () => {
   const {
     features: {splitBillEnabled},
   } = useConfig();
-  const content = useContent();
-  console.log('content: ', content);
+  const {content} = useContent();
+
   return (
     <div>
-      <h1>Bill</h1>
+      <h1>{content.title}</h1>
       {splitBillEnabled && (
         <div>
           <Link to="split-bill">go to split bill</Link>

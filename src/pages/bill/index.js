@@ -1,4 +1,5 @@
 import React from 'react';
+import {graphql} from 'gatsby';
 import BillContainer from '../../components/bill/bill-container';
 
 const Bill = props => {

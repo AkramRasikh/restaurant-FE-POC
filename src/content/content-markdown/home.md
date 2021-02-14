@@ -1,4 +1,4 @@
 ---
-path: 'home'
+path: '/'
 title: 'Home!'
 ---

@@ -3,11 +3,12 @@ import {node} from 'prop-types';
 import ConfigProvider from '../config-provider';
 import ContentProvider from '../../content/content-provider';
 
-const PageProvider = ({props, element}) => (
-  <ConfigProvider>
-    <ContentProvider {...props}>{element}</ContentProvider>
-  </ConfigProvider>
-);
+const PageProvider = ({props, element}) =>
+  console.log('props: ', props) || (
+    <ConfigProvider>
+      <ContentProvider {...props}>{element}</ContentProvider>
+    </ConfigProvider>
+  );
 
 PageProvider.propType = {
   element: node.isRequired,
