@@ -1,0 +1,4 @@
+---
+path: 'menu'
+title: 'Menu!'
+---

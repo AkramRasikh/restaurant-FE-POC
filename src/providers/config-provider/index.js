@@ -1,1 +1,1 @@
-export { default } from "./config-provider"
+export {default} from './config-provider';

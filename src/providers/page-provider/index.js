@@ -1,10 +1,13 @@
 import React from 'react';
 import {node} from 'prop-types';
 import ConfigProvider from '../config-provider';
+import ContentProvider from '../../content/content-provider';
 
-const PageProvider = ({element}) => {
-  return <ConfigProvider>{element}</ConfigProvider>;
-};
+const PageProvider = ({props, element}) => (
+  <ConfigProvider>
+    <ContentProvider {...props}>{element}</ContentProvider>
+  </ConfigProvider>
+);
 
 PageProvider.propType = {
   element: node.isRequired,

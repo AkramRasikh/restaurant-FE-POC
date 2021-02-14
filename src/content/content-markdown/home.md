@@ -1,0 +1,4 @@
+---
+path: 'home'
+title: 'Home!'
+---

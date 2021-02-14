@@ -1,8 +1,36 @@
-import React from "react"
+import React from 'react';
+import {graphql} from 'gatsby';
+import {shape, string} from 'prop-types';
 
-const Menu = props => {
-  console.log("props: ", props)
-  return <div>Menu</div>
-}
+const Menu = ({
+  data: {
+    markdownRemark: {
+      frontmatter: {title},
+    },
+  },
+}) => {
+  return <div>{title}</div>;
+};
 
-export default Menu
+Menu.propType = {
+  data: shape({
+    markdownRemark: shape({
+      frontmatter: shape({
+        title: string,
+      }),
+    }),
+  }).isRequired,
+};
+
+export default Menu;
+
+export const MenusPageQuery = graphql`
+  query MenusPageQuery {
+    markdownRemark(frontmatter: {path: {eq: "menu"}}) {
+      frontmatter {
+        path
+        title
+      }
+    }
+  }
+`;
