@@ -10,7 +10,6 @@ const ConfigProvider = ({
     config: {features},
   },
 }) => {
-  console.log('features: ', features);
   return <Provider value={{...features}}>{children}</Provider>;
 };
 

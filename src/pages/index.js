@@ -28,7 +28,6 @@ const HomePage = () => {
 
   const handleClick = () => {
     newSocket.emit('event', {payload: 'chilling!!!'});
-    console.log('emitting');
   };
 
   useEffect(() => {

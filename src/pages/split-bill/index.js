@@ -1,12 +1,11 @@
-import React from "react"
+import React from 'react';
 
-const Bill = props => {
-  console.log("props: ", props)
+const Bill = () => {
   return (
     <div>
       <h1>Split Bill</h1>
     </div>
-  )
-}
+  );
+};
 
-export default Bill
+export default Bill;
