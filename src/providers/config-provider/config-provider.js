@@ -1,30 +1,17 @@
 import React from 'react';
-import {useStaticQuery, graphql} from 'gatsby';
 import {node} from 'prop-types';
 import ConfigContext from './config-context';
 
 const {Provider} = ConfigContext;
 
-const ConfigProvider = ({children}) => {
-  const {
-    allConfigType: {nodes: configNodes},
-  } = useStaticQuery(
-    graphql`
-      query Data {
-        allConfigType {
-          nodes {
-            features {
-              orderEnabled
-              payEnabled
-              splitBillEnabled
-            }
-          }
-        }
-      }
-    `,
-  );
-
-  return <Provider value={{...configNodes[0]}}>{children}</Provider>;
+const ConfigProvider = ({
+  children,
+  pageContext: {
+    config: {features},
+  },
+}) => {
+  console.log('features: ', features);
+  return <Provider value={{...features}}>{children}</Provider>;
 };
 
 ConfigProvider.propType = {
