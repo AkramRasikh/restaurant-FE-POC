@@ -1,50 +1,36 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {graphql} from 'gatsby';
-import io from 'socket.io-client';
-import axios from 'axios';
-import useContent from '../content/content-provider/use-content';
+import {shape} from 'prop-types';
+import HomeContainer from '../components/home/home-container';
+import useSocket from '../providers/socket-provider/use-socket';
+import {socketMessages} from '../utils/socket';
 
-const HomePage = () => {
-  const {content} = useContent();
-  const SOCKET_SERVER_URL = 'http://localhost:3000';
-  const newSocket = io(SOCKET_SERVER_URL);
+const HomePage = ({
+  data: {
+    markdownRemark: {frontmatter: content},
+  },
+}) => {
+  const {
+    emit,
+    orders: {basket},
+  } = useSocket();
 
-  const [response, setResponse] = useState(null);
-
-  const getRequest = async () => {
-    try {
-      const {data} = await axios.get(`${SOCKET_SERVER_URL}/`);
-      setResponse(data);
-    } catch (error) {
-      console.error('error: ', error);
-    }
+  const getOrders = () => {
+    console.log('check ');
+    emit(socketMessages.getOrders);
   };
-
-  useEffect(() => {
-    newSocket.on('sendMsg', msg => {
-      console.log('sendMsg: ', msg);
-    });
-  }, [newSocket]);
-
-  const handleClick = () => {
-    newSocket.emit('event', {payload: 'chilling!!!'});
-  };
-
-  useEffect(() => {
-    getRequest();
-  }, []);
 
   return (
-    <>
-      <div>{content.title}</div>
-      <div>
-        <button type="button" onClick={handleClick}>
-          click
-        </button>
-      </div>
-      {response && <div>{response}</div>}
-    </>
+    <HomeContainer content={content} getOrders={getOrders} orders={basket} />
   );
+};
+
+HomePage.propTypes = {
+  data: shape({
+    markdownRemark: shape({
+      frontmatter: shape({}),
+    }),
+  }).isRequired,
 };
 
 export const HomePageQuery = graphql`
@@ -53,6 +39,9 @@ export const HomePageQuery = graphql`
       frontmatter {
         path
         title
+        orders
+        priceText
+        getOrders
       }
     }
   }

@@ -1,25 +1,11 @@
 import React from 'react';
-import {render} from '@testing-library/react';
 import Bill from './bill-container';
 import {attributes as content} from '../../content/content-markdown/bill.md';
-import ConfigProvider from '../../providers/config-provider';
+import renderWithProviders from '../../test-utils/render-with-providers';
 
-const renderComponent = () =>
-  render(
-    <ConfigProvider
-      pageContext={{
-        config: {
-          features: {
-            orderEnabled: true,
-            payEnabled: true,
-            splitBillEnabled: true,
-          },
-        },
-      }}
-    >
-      <Bill content={content} />
-    </ConfigProvider>,
-  );
+const renderComponent = (configProps = {}) => {
+  return renderWithProviders({page: <Bill content={content} />, configProps});
+};
 
 test('should have content', () => {
   const {getByText} = renderComponent();

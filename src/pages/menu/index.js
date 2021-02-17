@@ -12,7 +12,7 @@ const Menu = ({
   return <div>{title}</div>;
 };
 
-Menu.propType = {
+Menu.propTypes = {
   data: shape({
     markdownRemark: shape({
       frontmatter: shape({

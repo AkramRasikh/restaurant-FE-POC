@@ -10,16 +10,17 @@ const BillContainer = ({content}) => {
       <h1>{content.title}</h1>
       {splitBillEnabled && (
         <div>
-          <Link to="split-bill">go to split bill</Link>
+          <Link to="split-bill">{content.toSplitBill}</Link>
         </div>
       )}
     </div>
   );
 };
 
-BillContainer.propType = {
+BillContainer.propTypes = {
   content: shape({
-    title: string,
+    title: string.isRequired,
+    toSplitBill: string.isRequired,
   }).isRequired,
 };
 

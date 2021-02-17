@@ -1,5 +1,5 @@
 import React from 'react';
-import {node} from 'prop-types';
+import {node, shape} from 'prop-types';
 import ConfigContext from './config-context';
 
 const {Provider} = ConfigContext;
@@ -9,12 +9,13 @@ const ConfigProvider = ({
   pageContext: {
     config: {features},
   },
-}) => {
-  return <Provider value={{...features}}>{children}</Provider>;
-};
+}) => <Provider value={{...features}}>{children}</Provider>;
 
-ConfigProvider.propType = {
+ConfigProvider.propTypes = {
   children: node.isRequired,
+  pageContext: shape({
+    features: shape({}),
+  }).isRequired,
 };
 
 export default ConfigProvider;

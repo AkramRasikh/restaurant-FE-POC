@@ -1,16 +1,21 @@
 import React from 'react';
-import {node} from 'prop-types';
+import {node, object} from 'prop-types';
 import ConfigProvider from '../config-provider';
 import ContentProvider from '../../content/content-provider';
+import SocketProvider from '../socket-provider';
 
-const PageProvider = ({props, element}) => (
+const PageProvider = ({element, props}) => (
   <ConfigProvider {...props}>
-    <ContentProvider {...props}>{element}</ContentProvider>
+    <SocketProvider>
+      <ContentProvider {...props}>{element}</ContentProvider>
+    </SocketProvider>
   </ConfigProvider>
 );
 
-PageProvider.propType = {
+PageProvider.propTypes = {
   element: node.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  props: object.isRequired,
 };
 
 export default PageProvider;
