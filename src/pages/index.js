@@ -16,7 +16,6 @@ const HomePage = ({
   } = useSocket();
 
   const getOrders = () => {
-    console.log('check ');
     emit(socketMessages.getOrders);
   };
 

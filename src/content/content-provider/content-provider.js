@@ -13,14 +13,14 @@ const ContentProvider = ({
   return <Provider value={{content}}>{children}</Provider>;
 };
 
-ContentProvider.propType = {
-  children: node,
+ContentProvider.propTypes = {
+  children: node.isRequired,
   data: shape({
     markdownRemark: shape({
       // eslint-disable-next-line react/forbid-prop-types
       frontmatter: object.isRequired,
-    }).isRequired,
-  }),
+    }),
+  }).isRequired,
 };
 
 export default ContentProvider;
