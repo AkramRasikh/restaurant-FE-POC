@@ -11,7 +11,9 @@ const SocketProvider = ({children}) => {
   const [orders, setOrders] = useState({});
   useEffect(() => {
     if (socket) {
+      console.log('socket.on inside condition:', socket.on);
       socket.on(socketMessages.sendOrders, newOrders => {
+        console.log('newOrders: ', newOrders);
         setOrders({...orders, ...newOrders});
       });
     }
@@ -22,6 +24,10 @@ const SocketProvider = ({children}) => {
     const socketInstance = io(SOCKET_SERVER_URL);
     setSocket(socketInstance);
   }, []);
+
+  useEffect(() => {
+    console.log('orders updated?: ', orders);
+  }, [orders]);
 
   const emit = (msg, payload) => {
     socket.emit(msg, payload);

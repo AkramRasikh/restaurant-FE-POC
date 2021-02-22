@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {arrayOf, func, object, shape, string} from 'prop-types';
 
 const HomeContainer = ({content, orders, getOrders}) => {
   const handleClick = () => {
     getOrders();
   };
+  useEffect(() => {
+    getOrders();
+  }, []);
 
   return (
     <div data-testid="homeId">

@@ -15,9 +15,8 @@ const HomePage = ({
     orders: {basket},
   } = useSocket();
 
-  const getOrders = () => {
-    emit(socketMessages.getOrders);
-  };
+  console.log('basket: ', basket);
+  const getOrders = () => emit(socketMessages.getOrders);
 
   return (
     <HomeContainer content={content} getOrders={getOrders} orders={basket} />
